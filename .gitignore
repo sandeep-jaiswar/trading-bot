@@ -3,3 +3,12 @@ coverage
 
 # Environment variables
 *.env
+
+# Logs
+logs/
+
+# Catched files
+__pycache__/
+
+# Database
+*.sqlite3

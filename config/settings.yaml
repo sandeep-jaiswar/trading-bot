@@ -1,0 +1,16 @@
+trading:
+  symbol: "BTCUSDT"
+  interval: "1m"
+  order_type: "LIMIT"
+  trade_amount: 0.001
+  leverage: 10
+  max_drawdown: 5  # Max loss in percentage
+
+strategy:
+  type: "moving_average"
+  short_window: 9
+  long_window: 21
+
+backtesting:
+  start_date: "2023-01-01"
+  end_date: "2023-12-31"
