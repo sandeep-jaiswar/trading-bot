@@ -1,0 +1,5 @@
+# Coverage
+coverage
+
+# Environment variables
+*.env
