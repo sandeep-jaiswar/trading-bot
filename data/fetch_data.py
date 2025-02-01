@@ -4,20 +4,27 @@ from core.exchange import BinanceAPI
 from config.config import settings
 
 class DataFetcher:
-    def __init__(self):
+    def __init__(self, interval="1m", limit=1000):
         self.binance = BinanceAPI()
         self.symbol = settings["trading"]["symbol"]
+        self.interval = interval
+        self.limit = limit
 
-    def get_historical_data(self, interval="1m", limit=1000):
+    def get_historical_data(self) -> pd.DataFrame:
         """Fetch historical kline (candlestick) data from Binance API."""
         endpoint = "/api/v3/klines"
         params = {
             "symbol": self.symbol,
-            "interval": interval,
-            "limit": limit
+            "interval": self.interval,
+            "limit": self.limit
         }
-        response = requests.get(self.binance.base_url + endpoint, params=params)
-        data = response.json()
+        try:
+            response = requests.get(self.binance.base_url + endpoint, params=params)
+            response.raise_for_status()  # Raise an error for bad responses
+            data = response.json()
+        except requests.RequestException as e:
+            print(f"Error fetching data: {e}")
+            return pd.DataFrame()  # Return an empty DataFrame on error
 
         # Convert to DataFrame
         df = pd.DataFrame(data, columns=[
@@ -31,8 +38,3 @@ class DataFetcher:
         df["high"] = df["high"].astype(float)
         df["low"] = df["low"].astype(float)
         return df
-
-# Example usage:
-# fetcher = DataFetcher()
-# df = fetcher.get_historical_data()
-# print(df.head())

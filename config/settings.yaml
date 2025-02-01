@@ -1,16 +1,18 @@
 trading:
-  symbol: "BTCUSDT"
-  interval: "1m"
-  order_type: "LIMIT"
-  trade_amount: 0.001
-  leverage: 10
+  symbol: "BTCUSDT"  # Trading pair symbol
+  interval: "1m"  # Time interval for trading
+  order_type: "LIMIT"  # Type of order to place
+  trade_amount: 0.001  # Amount to trade per order
+  leverage: 10  # Leverage for trading
   max_drawdown: 5  # Max loss in percentage
+  stop_loss: 5  # Stop loss in percentage
+  take_profit: 10  # Take profit in percentage
 
 strategy:
-  type: "moving_average"
-  short_window: 9
-  long_window: 21
+  type: "moving_average"  # Type of trading strategy
+  short_window: 9  # Short moving average window
+  long_window: 21  # Long moving average window
 
 backtesting:
-  start_date: "2023-01-01"
-  end_date: "2023-12-31"
+  start_date: "2023-01-01"  # Start date for backtesting
+  end_date: "2023-12-31"  # End date for backtesting
