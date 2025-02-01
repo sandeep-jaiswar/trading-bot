@@ -2,6 +2,7 @@ import os
 import time
 import hmac
 import hashlib
+import pandas as pd
 import requests
 import websocket
 import threading
@@ -35,12 +36,20 @@ class BinanceAPI:
 
     def get_historical_klines(self, symbol: str, interval: str, start_time: int = None, end_time: int = None) -> Dict[str, Any]:
         """Fetch historical candlestick data from Binance."""
-        return self.client.get_historical_klines(
+        klines = self.client.get_historical_klines(
             symbol=symbol,
             interval=interval,
             start_str=start_time,
             end_str=end_time
         )
+        data = pd.DataFrame(klines, columns=[
+            'timestamp', 'open', 'high', 'low', 'close', 'volume', 'close_time',
+            'quote_asset_volume', 'number_of_trades', 'taker_buy_base_asset_volume',
+            'taker_buy_quote_asset_volume', 'ignore'
+        ])
+        data['timestamp'] = pd.to_datetime(data['timestamp'], unit='ms')
+        data['close'] = data['close'].astype(float)
+        return data
 
     def get_symbol_ticker(self, symbol: str) -> Dict[str, Any]:
         """Fetch the latest price for a symbol."""

@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import requests
 from core.exchange import BinanceAPI
 from config.config import settings
 
