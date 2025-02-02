@@ -1,10 +1,12 @@
 import pandas as pd
 import numpy as np
 
-class MovingAverageCrossover:
-    def __init__(self, short_window, long_window):
+class Generator:
+    def __init__(self, short_window, long_window, atr_window=14, volume_multiplier=1.5):
         self.short_window = short_window
         self.long_window = long_window
+        self.atr_window = atr_window  # ATR Window for volatility filter
+        self.volume_multiplier = volume_multiplier  # Factor for breakout confirmation
 
     def generate_signals(self, data):
         """Generate buy/sell signals based on moving average crossover."""

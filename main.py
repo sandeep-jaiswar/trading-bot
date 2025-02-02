@@ -70,7 +70,7 @@ def main():
     logger.info("Starting backtesting...")
     symbol = 'BTCUSDT'
     interval = '1d'
-    start_date = '2024-01-01'
+    start_date = '2021-01-01'
     short_window = 10
     long_window = 50
     initial_capital = 10000

@@ -1,13 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from indicators.moving_average_crossover import MovingAverageCrossover
+from signals.generator import Generator
 from .performance import PerformanceMetrics
 from .exchange import BinanceAPI
 
 class Backtester:
     def __init__(self, symbol, interval, start_date, short_window, long_window, initial_capital):
         self.client = BinanceAPI()
-        self.strategy = MovingAverageCrossover(short_window, long_window)
+        self.strategy = Generator(short_window, long_window)
         self.performance = PerformanceMetrics()
         self.symbol = symbol
         self.interval = interval
